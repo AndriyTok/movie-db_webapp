@@ -1,19 +1,5 @@
-import axios from 'axios';
 import type {IBaseResponse} from "../models/api_response/IBaseResponse";
-import type IMovie from '../models/movies/IMovie';
-
-const API = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
-    params: {
-        api_key: import.meta.env.VITE_BASE_API_KEY
-    }
-});
-
-export type MoviesWithPagination = {
-    results: IMovie[];
-    page: number;
-    total_pages: number;
-}
+import {API, type MoviesWithPagination} from "./api.types.ts";
 
 export const movieService = {
     getMovies: async (page = 1): Promise<MoviesWithPagination> => {
