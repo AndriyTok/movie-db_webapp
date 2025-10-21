@@ -2,6 +2,7 @@ import type {IMovieBaseResponse} from "../models/api_response/IMovieBaseResponse
 import type {IGenresBaseResponse} from "../models/api_response/IGenresBaseResponse.ts";
 import type IGenre from "../models/genres/IGenre.ts";
 import {API, type MoviesWithPagination} from "./api.types.ts";
+import type {IMovieDetails} from "../models/movies/details/IMovieDetails.ts";
 
 export const movieService = {
     getMovies: async (page = 1): Promise<MoviesWithPagination> => {
@@ -44,3 +45,10 @@ export const genreService = {
         return response.data.genres;
     },
 };
+
+export const movieDetailsService = {
+    getMovieDetails: async(movieID: number): Promise<IMovieDetails> => {
+        const response = await API.get<IMovieDetails>(`/movie/${movieID}`);
+        return response.data;
+    }
+}

@@ -30,18 +30,26 @@ export const genresSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        const handlePending = (state: GenresSliceType) => {
+            state.isLoading = true;
+            state.error = null;
+        }
+
+        const handleRejected = (state: GenresSliceType) => {
+            state.isLoading = false;
+            state.error = 'Failed to fetch movie details!';
+        }
+
         builder
             .addCase(fetchGenres.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
+                handlePending(state);
             })
             .addCase(fetchGenres.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.genres = action.payload;
             })
-            .addCase(fetchGenres.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as string || 'Failed to fetch genres';
+            .addCase(fetchGenres.rejected, (state) => {
+                handleRejected(state);
             });
     },
 });
