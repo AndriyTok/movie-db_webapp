@@ -1,6 +1,6 @@
 import type IMovie from "../movies/IMovie.ts";
 
-export interface IBaseResponse {
+export interface IMovieBaseResponse {
   page: number;
   results: IMovie[];
   total_pages: number;

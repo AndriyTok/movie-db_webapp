@@ -1,9 +1,11 @@
-import type {IBaseResponse} from "../models/api_response/IBaseResponse";
+import type {IMovieBaseResponse} from "../models/api_response/IMovieBaseResponse.ts";
+import type {IGenresBaseResponse} from "../models/api_response/IGenresBaseResponse.ts";
+import type IGenre from "../models/genres/IGenre.ts";
 import {API, type MoviesWithPagination} from "./api.types.ts";
 
 export const movieService = {
     getMovies: async (page = 1): Promise<MoviesWithPagination> => {
-        const response = await API.get<IBaseResponse>('/discover/movie', {
+        const response = await API.get<IMovieBaseResponse>('/discover/movie', {
             params: {page}
         });
         return {
@@ -14,7 +16,7 @@ export const movieService = {
     },
 
     getMoviesByGenre: async (id: number, page = 1): Promise<MoviesWithPagination> => {
-        const response = await API.get<IBaseResponse>('/discover/movie', {
+        const response = await API.get<IMovieBaseResponse>('/discover/movie', {
             params: {with_genres: id, page}
         });
         return {
@@ -25,7 +27,7 @@ export const movieService = {
     },
 
     searchMovies: async (query: string, page = 1): Promise<MoviesWithPagination> => {
-        const response = await API.get<IBaseResponse>('/search/movie', {
+        const response = await API.get<IMovieBaseResponse>('/search/movie', {
             params: {query, page}
         });
         return {
@@ -34,4 +36,11 @@ export const movieService = {
             total_pages: response.data.total_pages
         };
     }
+};
+
+export const genreService = {
+    getGenres: async (): Promise<IGenre[]> => {
+        const response = await API.get<IGenresBaseResponse>('/genre/movie/list');
+        return response.data.genres;
+    },
 };
