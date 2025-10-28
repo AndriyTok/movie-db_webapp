@@ -4,7 +4,7 @@ import MoviePage from "../layouts/pages/movie/MoviePage.tsx";
 
 const routes: RouteObject[] = [
     {
-        path: "/", element: <MoviesPage/>, children: [
+        path: "", element: <MoviesPage/>, children: [
             {path: '/movies', element: <MoviesPage/>},
             {path: '/movies/:id', element: <MoviePage/>},
             {path: '/movies/:genre', element: <MoviesPage/>},
