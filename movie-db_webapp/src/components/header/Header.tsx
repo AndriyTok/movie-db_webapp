@@ -33,14 +33,15 @@ const Header = () => {
                 >
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
+
             </div>
 
             {/*mobile menu*/}
             {isOpen && (
-                <div className="mt-4 flex flex-col space-y-4 md:hidden">
-                    <GenresDropDown />
+                <div className="mt-4 flex flex-col space-y-4 items-end md:hidden">
                     <SearchInput />
                     <FakeUserCircle />
+                    <GenresDropDown />
                 </div>
             )}
         </header>
