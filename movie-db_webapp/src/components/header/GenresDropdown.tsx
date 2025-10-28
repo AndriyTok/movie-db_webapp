@@ -60,7 +60,7 @@ const GenresDropDown:FC<GenresDropdownProps> = ({className = ''}) => {
             </button>
 
             {isOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-gray-800 rounded-lg shadow-xl border
+                <div className="absolute top-full -left-15 mt-2 w-35 bg-gray-800 rounded-lg shadow-xl border
                 border-gray-700 z-50 opacity-70">
                     <div className="py-2">
                         {GENRES.map((genre) => (
