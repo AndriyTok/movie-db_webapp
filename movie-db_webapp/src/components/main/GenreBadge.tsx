@@ -10,7 +10,7 @@ const GenreBadge:FC<GenreBadgeProps> = ({genreId}) => {
     const genre = genres.find(g => g.id === genreId);
 
     return (
-        <span className={'genre-badge'}>
+        <span className='bg-white/15 text-white px-2.5 py-1 rounded-xl text-xs font-medium'>
             {genre?.name || 'Unknown'}
         </span>
     );

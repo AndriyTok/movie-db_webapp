@@ -18,13 +18,15 @@ const MovieList = () => {
     }, [dispatch, currentPage, activeGenreId]);
 
     if (isLoading) {
-        return <div className="loading">Loading movies...</div>;
+        return <div className="text-center py-12 text-white text-lg">Loading movies...</div>;
     }
 
     return (
-        <div className="movie-list">
+        <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-8
+            max-w-[1400px] mx-auto">
             {movies.map(movie => (
-                <MovieListCard key={movie.id} movie={movie} />
+                <MovieListCard key={movie.id} movie={movie}/>
             ))}
         </div>
     );
