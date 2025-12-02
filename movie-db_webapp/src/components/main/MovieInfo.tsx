@@ -18,7 +18,7 @@ const MovieInfo: FC<MovieInfoProps> = ({movie}) => {
                     <GenreBadge key={genreId} genreId={genreId}/>
                 ))}
             </div>
-            <div className="flex justify-between text-xs text-white/70">
+            <div className="flex flex-col justify-around text-xs text-white/70">
                 <span>Release: {movie.release_date}</span>
                 <span>Popularity: {movie.popularity.toFixed(1)}</span>
             </div>

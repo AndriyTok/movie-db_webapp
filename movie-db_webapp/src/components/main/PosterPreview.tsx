@@ -11,7 +11,7 @@ export const PosterPreview:FC<PosterPreviewProps> = ({posterPath, title}) => {
         : '/placeholder-movie.png'
 
     return (
-        <div className='w-full h-[375px] overflow-hidden'>
+        <div className='w-full h-[375px] overflow-hidden bg-cover'>
             <img src={imageUrl} alt={title} className="w-full h-full object-cover"/>
         </div>
     );

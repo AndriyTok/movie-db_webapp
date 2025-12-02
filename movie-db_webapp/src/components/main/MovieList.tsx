@@ -3,11 +3,16 @@ import {useAppDispatch} from "../../redux/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../../redux/hooks/useAppSelector.ts";
 import {fetchMovies, fetchMoviesByGenre} from "../../redux/slices/movie/movieThunks.ts";
 import {MovieListCard} from "./MovieListCard.tsx";
+import {fetchGenres} from "../../redux/slices/genres/genresThunks.ts";
 
 const MovieList = () => {
     const dispatch = useAppDispatch();
     const {movies, isLoading, currentPage} = useAppSelector(state => state.movieSlice);
     const {activeGenreId} = useAppSelector(state => state.genresSlice);
+
+    useEffect(() => {
+        dispatch(fetchGenres())
+    }, [dispatch]);
 
     useEffect(() => {
         if (activeGenreId) {
