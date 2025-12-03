@@ -33,7 +33,7 @@ const GenresDropDown:FC<GenresDropdownProps> = ({className = ''}) => {
         <div className={`relative ${className}`} ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center space-x-1 text-gray-100 hover:text-white transition-colors duration-200"
+                className="flex items-center cursor-pointer space-x-1 text-gray-100 hover:text-white transition-colors duration-200"
             >
                 <span>Жанри</span>
                 <svg
