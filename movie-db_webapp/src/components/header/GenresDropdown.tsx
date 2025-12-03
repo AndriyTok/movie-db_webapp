@@ -1,18 +1,7 @@
 import {type FC, useEffect, useRef, useState} from "react";
-import {Link} from "react-router";
-
-const GENRES = [
-    { id: 28, name: 'Бойовик', slug: 'action' },
-    { id: 35, name: 'Комедія', slug: 'comedy' },
-    { id: 18, name: 'Драма', slug: 'drama' },
-    { id: 27, name: 'Жахи', slug: 'horror' },
-    { id: 10749, name: 'Мелодрама', slug: 'romance' },
-    { id: 878, name: 'Фантастика', slug: 'sci-fi' },
-    { id: 53, name: 'Трилер', slug: 'thriller' },
-    { id: 16, name: 'Анімація', slug: 'animation' },
-    { id: 80, name: 'Кримінал', slug: 'crime' },
-    { id: 14, name: 'Фентезі', slug: 'fantasy' }
-];
+import {useAppDispatch} from "../../redux/hooks/useAppDispatch.ts";
+import {setActiveGenre} from "../../redux/slices/genres/genresSlice.ts";
+import {useAppSelector} from "../../redux/hooks/useAppSelector.ts";
 
 type GenresDropdownProps = {
     className?: string;
@@ -21,32 +10,30 @@ type GenresDropdownProps = {
 const GenresDropDown:FC<GenresDropdownProps> = ({className = ''}) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const dispatch = useAppDispatch();
+    const {genres} = useAppSelector(state => state.genresSlice);
 
     useEffect(() => {
-        const handeClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)){
                 setIsOpen(false);
             }
         }
 
-        document.addEventListener('mousedown', handeClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const handleToogle = () => {
-        setIsOpen(!isOpen);
-    }
-
-    const handleGenreClick = () => {
+    const handleGenreClick = (genreId: number | null) => {
+        dispatch(setActiveGenre(genreId));
         setIsOpen(false);
     };
 
     return (
         <div className={`relative ${className}`} ref={dropdownRef}>
             <button
-                onClick={handleToogle}
+                onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center space-x-1 text-gray-100 hover:text-white transition-colors duration-200"
-                aria-expanded={isOpen}
-                aria-haspopup="true"
             >
                 <span>Жанри</span>
                 <svg
@@ -60,19 +47,22 @@ const GenresDropDown:FC<GenresDropdownProps> = ({className = ''}) => {
             </button>
 
             {isOpen && (
-                <div className="absolute top-full -left-15 mt-2 w-35 bg-gray-800 rounded-lg shadow-xl border
-                border-gray-700 z-50 opacity-70">
+                <div className="absolute top-full -left-15 mt-2 w-35 bg-gray-800 rounded-lg shadow-xl border border-gray-700 z-50">
                     <div className="py-2">
-                        {GENRES.map((genre) => (
-                            <Link
+                        <button
+                            onClick={() => handleGenreClick(null)}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-150"
+                        >
+                            Всі фільми
+                        </button>
+                        {genres.map((genre) => (
+                            <button
                                 key={genre.id}
-                                to={`/${genre.slug}`}
-                                onClick={handleGenreClick}
-                                className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700
-                                hover:text-white transition-colors duration-150"
+                                onClick={() => handleGenreClick(genre.id)}
+                                className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-150"
                             >
                                 {genre.name}
-                            </Link>
+                            </button>
                         ))}
                     </div>
                 </div>
