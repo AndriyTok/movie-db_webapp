@@ -25,6 +25,7 @@ export const movieSlice = createSlice({
     reducers: {
         setSearchQuery: (state, action: PayloadAction<string>) => {
             state.searchQuery = action.payload;
+            state.currentPage = 1;
         }
     },
     extraReducers: (builder) => {
@@ -35,51 +36,36 @@ export const movieSlice = createSlice({
             state.isLoading = false;
         };
         builder
-            // fetchMovies
-            .addCase(fetchMovies.pending, (state) => {
-                handlePending(state);
-            })
+            .addCase(fetchMovies.pending, handlePending)
             .addCase(fetchMovies.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.movies = action.payload.results;
                 state.currentPage = action.payload.page;
                 state.total_pages = action.payload.total_pages;
             })
-            .addCase(fetchMovies.rejected, (state) => {
-                handleRejected(state);
-            })
+            .addCase(fetchMovies.rejected, handleRejected)
 
-            // fetchMoviesByGenre
-            .addCase(fetchMoviesByGenre.pending, (state) => {
-                handlePending(state);
-            })
+            .addCase(fetchMoviesByGenre.pending, handlePending)
             .addCase(fetchMoviesByGenre.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.movies = action.payload.results;
                 state.currentPage = action.payload.page;
                 state.total_pages = action.payload.total_pages;
             })
-            .addCase(fetchMoviesByGenre.rejected, (state) => {
-                handleRejected(state);
-            })
+            .addCase(fetchMoviesByGenre.rejected, handleRejected)
 
-            // searchMovies
-            .addCase(searchMovies.pending, (state) => {
-                handlePending(state);
-            })
+            .addCase(searchMovies.pending, handlePending)
             .addCase(searchMovies.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.movies = action.payload.results;
                 state.currentPage = action.payload.page;
                 state.total_pages = action.payload.total_pages;
             })
-            .addCase(searchMovies.rejected, (state) => {
-                handleRejected(state);
-            })
+            .addCase(searchMovies.rejected, handleRejected)
 
-            // Reset page when genre changes
             .addCase(setActiveGenre, (state) => {
                 state.currentPage = 1;
+                state.searchQuery = "";
             });
     },
 });

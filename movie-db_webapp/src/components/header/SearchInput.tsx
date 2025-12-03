@@ -1,27 +1,29 @@
 import {type FormEvent, useState} from "react";
-import {useNavigate} from "react-router";
+import {useAppDispatch} from "../../redux/hooks/useAppDispatch.ts";
+import {searchMovies} from "../../redux/slices/movie/movieThunks.ts";
+import {setSearchQuery} from "../../redux/slices/movie/movieSlice.ts";
 
 const SearchInput = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const navigate = useNavigate();
+    const [localQuery, setLocalQuery] = useState('');
+    const dispatch = useAppDispatch();
 
     const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (searchQuery.trim()) {
-            navigate(`/search/${encodeURIComponent(searchQuery.trim())}`);
-            setSearchQuery('');
+        if (localQuery.trim()) {
+            dispatch(setSearchQuery(localQuery.trim()));
+            dispatch(searchMovies({query: localQuery.trim(), page: 1}));
+            setLocalQuery('');
         }
     };
-
 
     return (
         <div>
             <form onSubmit={handleSearchSubmit} className="relative">
                 <input
                     type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={localQuery}
+                    onChange={(e) => setLocalQuery(e.target.value)}
                     placeholder="Пошук фільму..."
                     className="bg-white text-shadow-white text-sm text-left px-1 py-2 rounded-lg w-60
                     focus:outline-none focus:ring-0 border-none opacity-60"
