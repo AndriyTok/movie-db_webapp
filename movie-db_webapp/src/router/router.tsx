@@ -4,13 +4,9 @@ import MoviePage from "../layouts/pages/movie/MoviePage.tsx";
 import SearchResultsPage from "../layouts/pages/search/SearchResultsPage.tsx";
 
 const routes: RouteObject[] = [
-    {
-        path: "", element: <MoviesPage/>, children: [
-            {path: '/movie/:id', element: <MoviePage/>},
-            {path: '/:genre', element: <MoviePage/>},
-            {path: '/search/:query', element: <SearchResultsPage/>},
-        ]
-    },
+    {path: "", element: <MoviesPage/>},
+    {path: "/movie/:id", element: <MoviePage/>},
+    {path: "/search/:query", element: <SearchResultsPage/>},
 ];
 
-export const router = createBrowserRouter(routes)
+export const router = createBrowserRouter(routes);
