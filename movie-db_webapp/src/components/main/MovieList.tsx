@@ -4,6 +4,7 @@ import {useAppSelector} from "../../redux/hooks/useAppSelector.ts";
 import {fetchMovies, fetchMoviesByGenre} from "../../redux/slices/movie/movieThunks.ts";
 import {MovieListCard} from "./MovieListCard.tsx";
 import {fetchGenres} from "../../redux/slices/genres/genresThunks.ts";
+import Pagination from "../functional/Pagination.tsx";
 
 const MovieList = () => {
     const dispatch = useAppDispatch();
@@ -27,13 +28,15 @@ const MovieList = () => {
     }
 
     return (
-        <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-8
-            max-w-[1400px] mx-auto">
-            {movies.map(movie => (
-                <MovieListCard key={movie.id} movie={movie}/>
-            ))}
-        </div>
+        <>
+            <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-8 max-w-[1400px] mx-auto">
+                {movies.map(movie => (
+                    <MovieListCard key={movie.id} movie={movie}/>
+                ))}
+            </div>
+            <Pagination/>
+        </>
     );
 };
 

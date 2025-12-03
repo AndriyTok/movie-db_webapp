@@ -1,6 +1,7 @@
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type IMovie from "../../../models/movies/IMovie.ts";
 import {fetchMovies, fetchMoviesByGenre, searchMovies} from "./movieThunks.ts";
+import {setActiveGenre} from "../genres/genresSlice.ts";
 
 type MovieSliceType = {
     movies: IMovie[];
@@ -17,7 +18,6 @@ export const initialState: MovieSliceType = {
     isLoading: false,
     searchQuery: "",
 };
-
 
 export const movieSlice = createSlice({
     name: 'movies',
@@ -75,6 +75,11 @@ export const movieSlice = createSlice({
             })
             .addCase(searchMovies.rejected, (state) => {
                 handleRejected(state);
+            })
+
+            // Reset page when genre changes
+            .addCase(setActiveGenre, (state) => {
+                state.currentPage = 1;
             });
     },
 });

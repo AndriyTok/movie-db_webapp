@@ -1,8 +1,3 @@
-// Стан (State)	genres: IGenre[], `activeGenreId: number	null, isLoading: boolean,
-// error: string
-// Асинхронні Thunks	fetchGenres()	createAsyncThunk
-// Синхронні Reducers	`setActiveGenre(id: number	null)` (для кліку на жанр)
-
 import type IGenre from "../../../models/genres/IGenre.ts";
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {fetchGenres} from "./genresThunks.ts";
