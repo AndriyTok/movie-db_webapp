@@ -3,6 +3,7 @@ import {useParams, useNavigate} from "react-router";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.ts";
 import {fetchMovieDetails} from "../../../redux/slices/details/detailsThunks.ts";
+import {setActiveGenre} from "../../../redux/slices/genres/genresSlice.ts";
 import StarsRating from "../../../components/main/StarsRating.tsx";
 import bgImage from "../../../images/movies-bg.jpg";
 import Header from "../../../components/header/Header.tsx";
@@ -18,6 +19,11 @@ const MoviePage = () => {
             dispatch(fetchMovieDetails(Number(id)));
         }
     }, [dispatch, id]);
+
+    const handleGenreClick = (genreId: number) => {
+        dispatch(setActiveGenre(genreId));
+        navigate('/');
+    };
 
     if (isLoading) {
         return (
@@ -96,10 +102,11 @@ const MoviePage = () => {
                                 {details.genres.map(genre => (
                                     <span
                                         key={genre.id}
-                                        className="bg-white/15 px-3 py-1 rounded-full text-sm"
+                                        onClick={() => handleGenreClick(genre.id)}
+                                        className="bg-white/15 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-white/25 transition-all duration-200 hover:scale-105"
                                     >
-                                        {genre.name}
-                                    </span>
+                                                {genre.name}
+                                            </span>
                                 ))}
                             </div>
 
@@ -136,8 +143,8 @@ const MoviePage = () => {
                                                 key={company.id}
                                                 className="bg-white/10 px-3 py-1 rounded-lg text-sm"
                                             >
-                                                {company.name}
-                                            </span>
+                                                        {company.name}
+                                                    </span>
                                         ))}
                                     </div>
                                 </div>
