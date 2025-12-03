@@ -1,7 +1,4 @@
 # 🎬 MovieDB WebApp
-
-A modern React-based movie database application built with TypeScript, Redux, and Tailwind CSS. Browse movies, filter by genres, search, and view detailed information about your favorite films.
-
 ## 🚀 Features
 
 - **Browse Movies**: Paginated list of popular movies
@@ -9,16 +6,6 @@ A modern React-based movie database application built with TypeScript, Redux, an
 - **Search**: Search movies by title or partial title
 - **Movie Details**: View comprehensive information including ratings, cast, budget, and more
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Modern UI**: Beautiful interface with hover effects and smooth transitions
-
-## 🛠️ Tech Stack
-
-- **React** with TypeScript
-- **Redux Toolkit** for state management
-- **React Router** for navigation
-- **Tailwind CSS** for styling
-- **TMDB API** for movie data
-- **Vite** as build tool
 
 ## 📋 Prerequisites
 
@@ -55,13 +42,6 @@ npm run dev
 ```
 
 The application will open at `http://localhost:5173`
-
-## 📦 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
 
 ## 🎯 Usage
 
